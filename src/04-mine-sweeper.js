@@ -21,8 +21,23 @@
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new Error('Not implemented');
+
+function getNeighborMinesCount(n, k, matrix) {
+  let mineCount = 0;
+  for (let i = (n - 1); i <= (n + 1); i++) {
+    for (let j = (k - 1); j <= (k + 1); j++) {
+      if (
+        (matrix[i] !== undefined)
+        && (matrix[i][j] !== undefined)
+        && ((i !== n) || (j !== k))
+      ) mineCount += matrix[i][j];
+    }
+  }
+  return mineCount;
+}
+
+function minesweeper(matrix) {
+  return matrix.map((row, i) => row.map((el, j) => getNeighborMinesCount(i, j, matrix)));
 }
 
 module.exports = minesweeper;
